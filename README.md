@@ -1,10 +1,10 @@
 # Casually for Codex and Claude Code
 
-Casuallyの共有プロジェクト、キャンペーンLP・メール、素材生成、承認、実績確認をAIから操作するプラグインです。
+Casuallyのプロジェクト、キャンペーンLP・メール、素材生成、承認、実績確認をAIから操作するプラグインです。
 
 ## インストール
 
-Node.js 20以上と、選んだアプリのプラグイン対応CLIを用意してください。
+選んだアプリのプラグイン対応CLIで実行し、アプリを再起動します。
 
 ```sh
 # Claude Code
@@ -16,29 +16,41 @@ codex plugin marketplace add https://github.com/clyr-inc/casually-plugins.git
 codex plugin add casually@casually-plugins
 ```
 
-ビルド済みの接続プログラムを同梱しています。npm installやCasually本体のソースコードは不要です。
+プラグインは共有スキルとHTTP MCPの接続設定を含みます。Casually本体のソース、資格情報、実行スクリプトは含みません。
 
-## 接続とstgでの利用
+## Webで認証
 
-CasuallyのホームまたはAPIキー発行画面から「Codex・Claude Codeを接続」を開き、3ステップの接続ガイドに従ってください。
+1. Claude Codeの `/mcp` からCasuallyの「Authenticate」を選択します。CodexではMCP設定のCasuallyからログインします。
+2. ブラウザでCasuallyにログインし、アカウント・接続先・戻り先・許可する操作を確認して「接続を許可」を押します。
+3. アプリに戻ると接続完了になります。認証情報は各クライアントが保存・更新します。APIキーの発行や貼り付けは不要です。
 
-1. 管理者が「AI エージェント（MCP）」用キーを発行します。使う環境のキーを使用してください。
-2. アプリのCasually setupスキルにAPIホストを伝えます。Claude Codeでは `/casually:setup` で開けます。
-3. スキルが案内する `scripts/setup.cjs --host <APIホスト>` をターミナルで実行し、キーを非表示入力へ入れます。チャットにキーを貼る必要はありません。
+本番の接続先は `https://api.casually.marketing/api/v2/mcp` です。Casuallyのホームから `/dashboard/plugins` の接続ガイドを開けます。許可した接続もそこで解除できます。
 
-stgの接続は `--host https://<stgのAPIホスト> --profile stg`、保存済み設定の確認は `--check --profile stg` を使用します。本番とstgのキーを別々に保存でき、次のようにアプリを起動して切り替えます。
+**v0.3.0はAPIとWebのMCP OAuth対応が必要です。** 未対応の環境では接続できません。古いAPIキー方式への自動切り替えは行いません。
+
+## stg・ローカルのホスト指定
+
+Casuallyの接続ガイドでAPIホストと接続名を指定すると、その環境用のコマンドをコピーできます。次はstgの例です。実際のAPIホストに置き換えてください。
 
 ```sh
-CASUALLY_MCP_PROFILE=stg codex
-CASUALLY_MCP_PROFILE=stg claude
+claude mcp add --transport http --scope user casually-stg https://STAGING_API_HOST/api/v2/mcp
+codex mcp add casually-stg --url https://STAGING_API_HOST/api/v2/mcp
 ```
 
-名前付きプロファイルと、URL/キー環境変数・別の資格情報ファイルの併用は拒否します。ホストを変更する際は、その環境のキーを設定してください。
+`casually-stg` をMCP画面から認証します。手動登録したCodexの接続は `codex mcp login casually-stg` でもログインできます。stg作業ではプラグイン内の本番用CasuallyをMCP設定で無効にしてください。接続名とホストを確認してから操作します。認証は選んだ環境に限定されます。
 
-## できること
+HTTPSを使用してください。ローカル開発では `http://localhost:3001/api/v2/mcp` などのHTTPも使えます。ホストを切り替えるときは、別名のMCP接続を登録し、その環境のWebで認証します。
 
-`setup`、`project`、`campaign`、`landing-page`、`creative`、`report` の6スキルを含みます。「CasuallyでキャンペーンのLPとメールを作って」「このプロジェクトの実績を確認して」と依頼できます。
+Claude Desktop／claude.aiのカスタムコネクタにも、同じHTTPSのMCP URLを登録してWebで認証できます。上記のplugin installコマンドはClaude CodeとCodex用です。
 
-生成はCasuallyのクレジットを使用します。権限・契約プランの制限、人間による承認、公開・一斉配信の確認はCasually側で適用されます。AIから自己承認はできません。
+## 使い方
 
-[詳しい接続手順](plugins/casually/README.md)。同梱ライブラリのライセンスは [THIRD_PARTY_NOTICES](plugins/casually/THIRD_PARTY_NOTICES.txt) に記載しています。
+`setup`、`project`、`campaign`、`landing-page`、`creative`、`report` の6スキルを含みます。Claude Codeでは `/casually:setup` や `/casually:campaign`、Codexではスキル一覧または自然文から利用できます。
+
+- 「CasuallyでキャンペーンのLPとメールを作って」
+- 「保存済みLPの見出しを修正して」
+- 「このプロジェクトの実績を確認して」
+
+生成にはCasuallyのクレジットを使います。操作はログイン中のメンバー権限と契約プランに従い、公開・一斉配信にはCasuallyに保存された人間の承認が必要です。プラグインからの自己承認はできません。
+
+仕様: [Claude MCP認証](https://code.claude.com/docs/en/mcp#authenticate-with-remote-mcp-servers)、[Codex MCP](https://developers.openai.com/codex/mcp)、[MCP認証仕様](https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization)。
