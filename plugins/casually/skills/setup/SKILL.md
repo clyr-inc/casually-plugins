@@ -1,0 +1,13 @@
+---
+name: setup
+description: Connect the Casually plugin to a Casually account, check its available tools, or diagnose connection and scope errors in Codex or Claude Code.
+---
+
+Help the user connect Casually with their organization's MCP key. Use the bundled `scripts/setup.cjs`, located two directories above this skill folder, and the plugin README for installation commands.
+
+1. Check whether this plugin's Casually MCP tools are already available. If they are, read `list_creative_projects` and `get_ai_credit_balance` when permitted; report the connection and available scope without changing data.
+2. If connection setup is needed, obtain the MCP endpoint from Casually's API key screen. An administrator issues an **MCP-agent** key there. Campaign workflows use `orchestration`; project operations and assets also use `data` and `action`. Current membership and plan permissions still apply.
+3. Have the user run the bundled setup helper in their terminal with `--host <API origin>` or `--url <full MCP endpoint>` (never both). Use their specified host, including staging; do not substitute production. For staging use `--profile stg`, which stores separate credentials at `~/.config/casually/profiles/stg.json`; the default profile keeps `~/.config/casually/mcp.json`. The helper reads the key through a hidden prompt, verifies connection with read-only discovery, and saves it with private permissions. Do not ask the user to paste a key into chat or put it in command arguments, plugin files, source control or logs. The user provides only a Casually key; AI-provider keys stay on the server.
+4. Launch the client with `CASUALLY_MCP_PROFILE=stg codex` or `CASUALLY_MCP_PROFILE=stg claude` to use the named profile, then restart the MCP connection and check it. `--check --profile stg` checks that profile's saved host and key, without changing it. Existing credentials require explicit `--replace`. A custom credential path can be supplied through `CASUALLY_MCP_CREDENTIALS_FILE` instead of a named profile. The URL and key environment variables must both be present if that mode is used. Named profiles cannot be combined with an explicit credential file or environment key: the bridge refuses ambiguous selection to prevent a staging request from using production credentials.
+
+Allow public HTTPS endpoints and loopback HTTP endpoints only. An unavailable tool can indicate missing key scopes, role permissions or an old connection; use discovery rather than inventing a tool. Do not generate, publish, send, or change domains during setup. Reuse an already-authorized connection instead of creating another.

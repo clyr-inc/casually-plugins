@@ -1,0 +1,20 @@
+{
+  "name": "casually-plugins",
+  "interface": {
+    "displayName": "Casually"
+  },
+  "plugins": [
+    {
+      "name": "casually",
+      "source": {
+        "source": "local",
+        "path": "./plugins/casually"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

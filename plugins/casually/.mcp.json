@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "casually": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/scripts/mcp-bridge.cjs"]
+    }
+  }
+}

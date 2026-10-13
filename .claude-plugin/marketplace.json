@@ -1,0 +1,14 @@
+{
+  "name": "casually-plugins",
+  "description": "Casually marketing workflows for Codex and Claude Code.",
+  "owner": {
+    "name": "Casually"
+  },
+  "plugins": [
+    {
+      "name": "casually",
+      "source": "./plugins/casually",
+      "description": "Casually marketing workflows, shared projects and AI assets."
+    }
+  ]
+}

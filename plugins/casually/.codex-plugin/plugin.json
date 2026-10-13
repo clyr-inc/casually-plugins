@@ -1,0 +1,30 @@
+{
+  "name": "casually",
+  "version": "0.2.0",
+  "description": "Create and review marketing campaigns, manage shared projects and analyze results with Casually.",
+  "author": {
+    "name": "Casually"
+  },
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Casually",
+    "shortDescription": "LP・メール作成から承認・実績確認まで",
+    "longDescription": "Casuallyの企業文脈、共有プロジェクト、LPとメールの下書き、素材生成、承認と実績をCodexから操作します。",
+    "developerName": "Casually",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "CasuallyでキャンペーンのLPとメールを作成して",
+      "Casuallyのプロジェクトの実績を確認して"
+    ]
+  },
+  "extensions": {
+    "com.openai": {
+      "onboardingSkill": "./skills/setup/SKILL.md"
+    }
+  }
+}

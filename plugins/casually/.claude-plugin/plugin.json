@@ -1,0 +1,10 @@
+{
+  "name": "casually",
+  "version": "0.2.0",
+  "description": "Create and review marketing campaigns, manage shared projects and analyze results with Casually.",
+  "author": {
+    "name": "Casually"
+  },
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json"
+}
