@@ -4,7 +4,14 @@ Casuallyのプロジェクト、キャンペーンLP・メール、素材生成�
 
 ## インストール
 
-選んだアプリのプラグイン対応CLIで実行し、アプリを再起動します。
+Claude Codeのデスクトップ画面では、次の順に操作します。
+
+1. 入力欄の「＋」からプラグインのメニューを開き、**Manage Plugins** を選びます。
+2. **Marketplaces** タブで `https://github.com/clyr-inc/casually-plugins.git` を入力し、**Add** を押します。
+3. **Plugins** タブに戻り、**Casually** の **Install** を押します。
+4. 新しい会話を開きます。
+
+Codexではプラグイン画面からマーケットプレイスを追加し、Casuallyをインストールします。CLIで導入する場合は次のコマンドも使えます。
 
 ```sh
 # Claude Code
@@ -22,15 +29,15 @@ codex plugin add casually@casually-plugins
 
 1. Claude Codeの `/mcp` からCasuallyの「Authenticate」を選択します。CodexではMCP設定のCasuallyからログインします。
 2. ブラウザでCasuallyにログインし、アカウント・接続先・戻り先・許可する操作を確認して「接続を許可」を押します。
-3. アプリに戻ると接続完了になります。認証情報は各クライアントが保存・更新します。APIキーの発行や貼り付けは不要です。
+3. アプリに戻ると接続完了になります。認証情報は各クライアントが保存・更新します。MCP用APIキーは発行できません。以前のMCPキーも接続には使えません。自社システム向けのREST APIキーは引き続き使えます。
 
 本番の接続先は `https://api.casually.marketing/api/v2/mcp` です。Casuallyのホームから `/dashboard/plugins` の接続ガイドを開けます。許可した接続もそこで解除できます。
 
-**v0.3.0はAPIとWebのMCP OAuth対応が必要です。** 未対応の環境では接続できません。古いAPIキー方式への自動切り替えは行いません。
+**v0.3.1はAPIとWebのMCP OAuth対応が必要です。** 未対応の環境では接続できません。古いAPIキー方式への自動切り替えは行いません。
 
 ## stg・ローカルのホスト指定
 
-Casuallyの接続ガイドでAPIホストと接続名を指定すると、その環境用のコマンドをコピーできます。次はstgの例です。実際のAPIホストに置き換えてください。
+Casuallyの `/dashboard/plugins` は、現在の接続先に合わせて本番・stg・ローカルの説明、接続先、接続名を自動表示します。通常の手順でホストを入力する必要はありません。本番はインストールしたプラグインをそのまま使います。stg・ローカルは、検証担当者がガイド内の入力済みコマンドを初回に一度実行します。別のホストを使う場合だけ「別の接続先を指定する（開発者向け）」を開きます。次はstgの登録例です。
 
 ```sh
 claude mcp add --transport http --scope user casually-stg https://STAGING_API_HOST/api/v2/mcp
