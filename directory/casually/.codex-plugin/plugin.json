@@ -93,6 +93,7 @@
             }
           ]
         },
+        "demo_recording_url": "https://github.com/clyr-inc/casually-plugins/releases/download/directory-v0.4.0/casually-chatgpt-review.mp4",
         "commerce": false,
         "commerce_description": "This integration does not sell products, subscriptions or credits, or process payments."
       },
