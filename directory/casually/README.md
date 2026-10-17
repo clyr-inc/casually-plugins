@@ -82,3 +82,7 @@ A failed or revoked connection requires native OAuth again; do not fall back to 
 
 Do not post customer data, reviewer credentials, tokens or private preview links in public issues.
 This package uses the Casually Plugin License in LICENSE; CLYR株式会社 retains ownership.
+
+## Review recordings and verification
+
+The [0.4.0 review release](https://github.com/clyr-inc/casually-plugins/releases/tag/directory-v0.4.0) includes actual ChatGPT and Claude walkthroughs, chapter indexes and submission ZIPs. [Verification notes](./VERIFICATION.md) distinguish actual client results, supplemental protocol checks and untested delivery paths. These artifacts do not indicate directory approval. Reviewer credentials are provided privately and never included in this repository.
