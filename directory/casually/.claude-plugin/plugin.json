@@ -1,0 +1,21 @@
+{
+  "name": "casually",
+  "version": "0.4.0",
+  "description": "Prepare marketing projects, save landing page and email drafts, request human review, and read campaign results with Casually.",
+  "author": {
+    "name": "CLYR株式会社",
+    "email": "contact@clyr.co.jp",
+    "url": "https://casually.marketing"
+  },
+  "homepage": "https://casually.marketing",
+  "repository": "https://github.com/clyr-inc/casually-plugins",
+  "license": "LicenseRef-Casually-Plugin",
+  "keywords": [
+    "marketing",
+    "campaigns",
+    "landing-pages",
+    "email"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json"
+}
