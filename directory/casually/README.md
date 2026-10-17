@@ -43,6 +43,17 @@ A queued email is not proof of inbox delivery.
 
 ## Data sent, read and saved
 
+### Reference website registration
+
+`register_project_service_site` calls Casually's fixed `POST /api/creatives/projects/:id/service-site`
+operation. Its arguments are projectId, the selected public website URL, a unique requestKey and
+the project's latest baseUpdatedAt. It fetches that website to save typography, colors, copy,
+screenshots and existing image references in the authorized project. It cannot accept an arbitrary
+API path, HTTP method or request body, and does not authenticate to the source website, change DNS,
+publish a page or send email. Use a public website you are authorized to reference.
+
+### Tool data and retention
+
 The AI client sends only the arguments of the Casually tools it calls: selected IDs, a task brief,
 user-supplied copy, requested edits, selected website URLs, form settings, and any explicitly supplied
 audience. Casually uses the authenticated member and organization for permission checks. It reads and
