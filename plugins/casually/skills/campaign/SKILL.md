@@ -3,7 +3,11 @@ name: campaign
 description: Create or resume a Casually marketing campaign with an LP and email, preview its drafts, request human review, and launch an approved workflow.
 ---
 
+Before reading or changing Casually data, [choose the business unit](../setup/SKILL.md#choose-the-business-unit): confirm it with `list_business_units`, tell the user its name, then pass its `businessUnitId` on every later call.
+
 Use Casually's connected MCP tools to save the campaign in the team's shared project. Keep the user's requested product, goal, audience, offer, tone and email content. Ask only for missing facts that affect the output; never invent recipients, customer claims or performance evidence.
+
+For email-only delivery to an audience the user selected in another system (a CSV export), skip the LP workflow below. Call `import_recipient_list` with the supplied CSV first (preview is the default) and show new/existing contacts, duplicate and invalid rows with row numbers, the sendable count and the unsubscribe/bounce/complaint exclusions. Ask the user why everyone in the file may receive marketing email (`opt_in`, `business_card` or `customer`) and to confirm it; never choose or confirm it yourself. Save with `preview: false`, the list name, a unique `requestKey` and that `consent`; on retry reuse the same key and exact input. Every import is a separate fixed list. Then call `create_campaign` with the exact returned `segmentId` and the user's subject and body, and show the returned recipient counts and review URL. A person test-sends and sends from the review screen. Never omit `segmentId`, substitute all leads, overwrite contact profiles or remove unsubscribe/bounce exclusions.
 
 1. Discover available tools. Find the intended project with `list_creative_projects` and `get_creative_project`; find existing work with `list_marketing_workflows` before creating a duplicate. If project preparation is required, use the project skill. Preserve the project's registered service LP and brand context.
 2. Use `start_marketing_workflow` with the project and a unique `requestKey`. Use supplied CSV leads or the user's explicit `testRecipients` (1–10) when applicable. These two modes are mutually exclusive. A test workflow must keep those exact inboxes and its test label. Remember the returned workflow ID for resuming work.

@@ -1,13 +1,17 @@
 ---
 name: creative
-description: Generate and save Casually project hero images, ad banners, or platform image/video assets with a quoted credit budget, then attach saved assets to draft LPs.
+description: Generate and save Casually project hero images, ad banners, or platform image/video/audio assets with a quoted credit budget, then attach saved images to draft LPs or reuse media in video workflows.
 ---
+
+Before reading or changing Casually data, [choose the business unit](../setup/SKILL.md#choose-the-business-unit): confirm it with `list_business_units`, tell the user its name, then pass its `businessUnitId` on every later call.
 
 Find the intended project and inspect saved creatives before generating another asset. Use Casually's platform tools so results, costs and history stay with the team's project.
 
 For LP heroes and banners, use `estimate_creative_generation` with the brief, actual project, dimensions and variation count. Read `get_ai_credit_balance`. Generate only within the user's authorized budget using `generate_project_creatives`, the quote's `pricingVersion`, `maxCredits`, a unique `requestKey` and the same brief. If generation was not authorized, present the cost before spending.
 
-For other image/video services, discover `list_ai_services`, select a configured provider/kind suitable for the request, call `estimate_ai_asset`, then `generate_ai_asset` with the quote's pricing version and the authorized budget. Discover the schemas before choosing provider identifiers or models. Ask for no provider API keys; Casually manages them.
+For other image/video/audio services, discover `list_ai_services`, select a configured provider/kind suitable for the request, call `estimate_ai_asset`, then `generate_ai_asset` with the quote's pricing version and the authorized budget. Use the service's `provider` field, not its `id` (OpenAI TTS has id `openai-tts` but provider `openai`). Select an optional `model` from its advertised `models`; omit it to use the configured default. For GPT Image, `quality` affects the quote and `size` reports the actual native output dimensions. Discover the schemas before choosing provider identifiers or models. Ask for no provider API keys; Casually manages them.
+
+For narration, use provider `openai`, kind `audio`, and the exact script as `prompt`. Select `voice`, `speed` and `audioFormat` from discovery; WAV is useful for video editing. Omit image/video fields (`ratio`, `seconds`, `quality`) for audio. TTS supports `tts-1` and `tts-1-hd`; do not invent unsupported models or voice instructions. Clearly disclose that the voice is AI generated when presenting audio to end users. Reuse the same `projectId` for scene images, video clips and narration, then pass saved asset URLs and MIME types to the agent/tool doing composition. These generation tools create source assets; they do not mux audio into a finished video. Never attach audio/video to an LP image block.
 
 Poll `get_creative_generation` or `get_ai_asset` for the saved generation ID. After disconnection, resume from that ID; do not generate again to check status. Keep the same key and inputs for retries. Keep the MCP connection open while waiting. Wait at least `pollAfterSeconds` (or until `nextPollAt`) before each status read; `null` means the job is terminal, so stop polling. If an older server has no interval hint, wait at least 15 seconds. For `RECONCILING`, wait at least 60 seconds. Respect `retryAfterSeconds` and HTTP `Retry-After`, increase the interval after transient failures, and send only one status read at a time. Authentication or permission errors require reconnecting or correcting access, not a new generation. Show the saved asset IDs and preview URLs; report failures and refunds as the server records them.
 
