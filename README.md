@@ -60,4 +60,12 @@ Claude Desktop／claude.aiのカスタムコネクタにも、同じHTTPSのMCP 
 
 生成にはCasuallyのクレジットを使います。操作はログイン中のメンバー権限と契約プランに従い、公開・一斉配信にはCasuallyに保存された人間の承認が必要です。プラグインからの自己承認はできません。
 
+## 公式ディレクトリ版（directory/casually）
+
+`directory/casually` は、ClaudeとChatGPT/Codexの公式ディレクトリに申請するための版です。操作を32に固定し、画像・動画・音声の生成、任意のAPIの実行、AIによる承認、クレジットの購入を含みません。接続先は `https://api.casually.marketing/api/v2/mcp/directory` です。上記のマーケットプレイス版（`plugins/casually`）とは別で、同じ会話で両方を使わないでください。
+
+`directory/mcp-registry/server.json` は、公式MCP Registryに `io.github.clyr-inc/casually` として登録する情報です。掲載版と同じ接続先・版を指します。登録は、clyr-incのOwnerのGitHubアカウントで `mcp-publisher login github` のあと、このフォルダで `mcp-publisher publish` を実行します。
+
+どちらもまだ審査に出していません。審査の記録は [directory/casually/VERIFICATION.md](directory/casually/VERIFICATION.md) にあります。
+
 仕様: [Claude MCP認証](https://code.claude.com/docs/en/mcp#authenticate-with-remote-mcp-servers)、[Codex MCP](https://developers.openai.com/codex/mcp)、[MCP認証仕様](https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization)。

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.clyr-inc/casually",
+  "title": "Casually",
+  "description": "Save landing page and email drafts in Casually, request human review and read campaign results.",
+  "version": "0.4.0",
+  "websiteUrl": "https://github.com/clyr-inc/casually-plugins/tree/main/directory/casually",
+  "repository": {
+    "url": "https://github.com/clyr-inc/casually-plugins",
+    "source": "github"
+  },
+  "icons": [
+    {
+      "src": "https://casually.marketing/icon.svg",
+      "mimeType": "image/svg+xml",
+      "sizes": ["any"]
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://api.casually.marketing/api/v2/mcp/directory"
+    }
+  ]
+}
