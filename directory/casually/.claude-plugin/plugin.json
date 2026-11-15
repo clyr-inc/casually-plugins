@@ -10,6 +10,7 @@
   "homepage": "https://casually.marketing",
   "repository": "https://github.com/clyr-inc/casually-plugins",
   "license": "LicenseRef-Casually-Plugin",
+  "privacyPolicyUrl": "https://casually.marketing/legal/privacy-policy",
   "keywords": [
     "marketing",
     "campaigns",
